@@ -1,0 +1,138 @@
+
+<html> 
+<head> 
+  <title>Save to Website Options</title> 
+  <style type="text/css"> 
+    /**
+     * Reset Based on Yahoo! Inc's reset v2.5.2
+     **/
+    /*html, body {min-height:100%;}*/
+    body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {margin:0; padding:0;}
+    table {border-collapse:collapse; border-spacing:0;}
+    fieldset,img {border:0;}
+    address,caption,cite,code,dfn,em,strong,th,var {font-style:normal; font-weight:normal;}
+    ol,ul {list-style:none;}
+    caption,th {text-align:left;}
+    h1,h2,h3,h4,h5,h6 {font-size:100%; font-weight:normal;}
+    q:before,q:after {content:'';}
+    abbr,acronym {border:0;}
+  
+    strong,b {font-weight:bold;}
+    em,i {font-style:italic;}
+    iframe {background:white;}
+  
+    body {font-size:12px; font-family:"Segoe UI", Frutiger, Tahoma, "Helvetica", "Helvetica Neue", Arial, sans-serif; background:#FFF; color:#1A1A1A; text-align:left;}
+    html {width:100%; height:100%; background:-webkit-gradient(linear, left top, right top, from(#edeff4), color-stop(0.3, #d8dfea), to(#d8dfea)); -webkit-background-size: 6px 100%;}
+  /*cbc3b8,beb6ab*/
+    body {background:#FFF; position:relative; z-index:2; width:700px; height:770px; padding:10px 30px; margin:30px auto 0px auto; -webkit-border-radius:0px; -webkit-box-shadow:0px 1px 5px rgba(0,0,0,0.6); /*border:2px solid #FFF; background:-webkit-gradient(linear, left bottom, left top, from(#EEE), color-stop(10%, #FFF), to(#FFF));*/}
+    body > h1 {height:108px; padding-top:25px; padding-left:160px; min-height:128px; margin-bottom:25px; font-size:45px; font-weight:bold; background:transparent url(../images/icon.128.png) no-repeat left center;}
+    body > h1 + p {position:absolute; top:90px; left:0px; font-weight:bold; padding-left:190px; font-size:22px; color:#AAA;}
+    html:after {content:'.'; z-index:1; position:absolute; min-height:400px; width:100%; left:0%; top:0%; background:-webkit-gradient(linear, left top, left bottom, from(rgba(59,89,152,0.33)), to(rgba(59,89,152,0)));}
+    
+    p {font-size:13px; line-height:1.5; padding-bottom:8px; color:#222;}
+    .box {padding:5px 10px 10px; margin-bottom:25px; -webkit-border-radius:0px; background:#f7f7f7; border:1px solid #CCC; -webkit-box-shadow:inset 0px 0px 2px #FFF;}
+    .fb_btn {border:1px solid transparent; text-align:center; margin-right:3px; text-decoration:none; padding:2px 10px; -webkit-border-radius:1px; font-size:11px; font-weight:bold; cursor: pointer; display: inline-block; font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif; color:#000; -webkit-box-shadow:0px 1px 0px rgba(0,0,0,0.1);}
+    .fb_btn:active {background:#dddddd;}
+    .fb_btn.gray {border-color:#999999; color:#000; background:-webkit-gradient(linear, left top, left bottom, from(#FFFFFF), color-stop(0.05, #f5f6f6), to(#e4e4e3));}
+    .fb_btn.gray:active {background:#dddddd;}
+    .fb_btn.blue {border-color:#29447e; color:#FFF; background:-webkit-gradient(linear, left top, left bottom, from(#8a9cc2), color-stop(0.05, #637bad), to(#5972a7));}
+    .fb_btn.blue:active {background:#4f6aa3;}
+    .fb_btn.blue:hover {-webkit-box-shadow:0px 0px 10px #8a9cc2;}
+    
+    #welcome > p:first-child,
+    #help > p:first-child {font-size:18px; text-align:center; margin-bottom:15px;}
+    
+    ul .fb_btn {width:100px;}
+    ul > li {padding:0px 10px;}
+    .legal {position:absolute; left:0px; bottom:0px; width:100%; font-size:10px; padding:25px 0px 15px 0px; text-align:center; color:#999;}
+    .legal a {color:#777; text-decoration:underline;}
+    .legal a:hover {color:#333; text-decoration:none;}
+    
+    section#settings {position:relative;}
+    section#settings > p:first-child {margin-bottom:15px;}
+    section#settings fieldset {width:500px; border:0px; margin:auto; padding:0px; margin-bottom:25px; position:relative;}
+    section#settings fieldset:last-child {text-align:right;}
+    section#settings fieldset:last-child button {margin-left:5px;}
+    section#settings fieldset legend,
+    section#settings fieldset label,
+    section#settings fieldset span,
+    section#settings fieldset span * {font-family:'lucida grande', tahoma, verdana, arial, sans-serif; font-size:11px; color:#555;}
+    section#settings fieldset .notice {font-size:9px; color:#999; position:absolute; left:0px; top:3px;}
+    section#settings fieldset > legend {display:block; width:100%; font-size:13px; color:#333; font-weight:bold; border-bottom:1px solid #c7cfe0; }
+    section#settings fieldset label {-webkit-box-sizing:border-box; display:block; height:25px; float:left; padding:4px 5px 0px; width:70%; border-bottom:1px solid #e2e6ef; }
+    section#settings fieldset label + span {-webkit-box-sizing:border-box; text-align:center; display:block; height:25px; padding:3px 5px 0px; background:#f8f8f8; overflow:hidden; border-bottom:1px solid #e2e6ef;}
+    section#settings fieldset label + span:after {content:','; display:block; clear:both; visibility:hidden; line-height:0; height:0;}
+    section#settings fieldset label + span > input {margin-right:4px; vertical-align:middle;}
+    section#settings fieldset label + span > input[type="text"] {width:40px; font-size:11px;}
+    section#settings fieldset label + span > input[type="range"] {width:90px;}
+    section#settings fieldset label + span > input[type="range"] + span {display:inline-block; width:30px; text-align:left;}
+    section#settings fieldset label + span > select {text-transform:uppercase;}
+    
+    body > nav {display:block; height:20px; -webkit-box-sizing:border-box; border-bottom:1px solid #898989; padding:0px 15px; position:relative; font-size:0px;}
+    body > nav > a {display:inline-block; text-decoration:none; color:#333; height:20px; cursor:pointer; padding:3px 10px; font-family:'lucida grande', tahoma, verdana, arial, sans-serif; font-size:11px; font-weight:bold; -webkit-box-sizing:border-box; border:1px solid #898989; border-right-width:0px; background:#f1f1f1; -webkit-box-shadow:inset 0px 1px 0px #FFF;}
+    body > nav > a:hover {text-decoration:underline;}
+    body > nav > a:last-child {border-right-width:1px;}
+    body > nav > a.selected {color:#FFF; background:#6d84b4; border:1px solid #3b5998; -webkit-box-shadow:none;}
+    body > nav > a.selected + a {border-left-width:0px;}
+    body > section {display:none; height:500px; -webkit-box-sizing:border-box; padding:15px 25px; border:1px solid #d7d7d7; border-top:0px; background:#FFFFFF;}
+    body > section.selected {display:block;}
+    
+  </style> 
+</head> 
+<body> 
+ 
+<h1>Save to Website</h1> 
+<p>The best way to snarfle up images!</p> 
+ 
+<nav> 
+  <a id="welcome_nav" href="#welcome">Welcome</a> 
+  <a id="settings_nav" href="#settings">Settings</a> 
+  <a id="help_nav" href="#help">Help</a> 
+</nav> 
+ 
+<section id="welcome"> 
+  <p>Thanks for using Save to Website!</p> 
+ 
+  <div class="box" style="margin:10px 0px 20px;"> 
+    <p><strong>Don't forget to...</strong></p> 
+    <ul> 
+      <li><p><a class="fb_btn blue" target="_blank" href="https://chrome.google.com/webstore/detail/elioihkkcdgakfbahdoddophfngopipi">Rate 5 Stars</a> on Google Chrome Extensions</li> 
+    </ul> 
+  </div> 
+  
+  <p style="padding-top:10px;">If you would like to drop a line, please contact me via my website</a>. I'm a pretty busy guy and cannot promise I'll respond, but I can promise that I will read your message :)</p> 
+ 
+</section> 
+ 
+<section id="help"> 
+  <p>
+	You're on your own until I write something in here!  
+  </p> 
+   
+</section> 
+ 
+<section id="settings"> 
+  
+  <p> 
+	There are a handful of settings which need to be configured so you can make use of this extension. They should be pretty obvious.	
+  </p> 
+  
+  <fieldset> 
+    <legend>General</legend> 
+    <label for="phpURL">URL to your Save-to-Website.php</label> 
+    <span> 
+      <input type="text" name="phpURL" id="phpURL" value="" width="50" size="50" /> 
+    </span> 
+  </fieldset> 
+  
+
+  
+
+ 
+</section> 
+ 
+<p class="legal">Don't sue me.
+</p> 
+ 
+</body> 
+</html> 

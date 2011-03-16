@@ -13,6 +13,13 @@ enough nerd points to be able to save and configure a php script that
 this extension interfaces with. Its super simple, but you'd better
 know where your web accessable paths are n shit.
 
+### Credits n Props
+
+This extension is a stripped down hack of antimatter15's cloudsave:
+https://github.com/antimatter15/cloudsave
+
+Props to the crazy88 for putting up with my testing.
+
 ### Version Info
 
 17/03/2011 
