@@ -1,0 +1,23 @@
+Save to Website
+==============================
+
+### Overview
+
+An extension for Google Chrome which adds a "save to website" option 
+to the menu when you right click on images on web pages.
+
+### Requirements
+
+Along with this extension you'll also need your own webserver and 
+enough nerd points to be able to save and configure a php script that
+this extension interfaces with. Its super simple, but you'd better
+know where your web accessable paths are n shit.
+
+### Version Info
+
+17/03/2011 
+* v 0.0.1
+
+I'm porting the hardcoded version of this into an easily configurable
+version which anyone would be able to setup and use on their own web
+server.
