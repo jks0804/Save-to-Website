@@ -6,7 +6,9 @@ var root = chrome.contextMenus.create({
   "contexts" : ["image"]
 });
 
-var Hosts = {};
+var hosts = {};
+
+var subdirs = localStorage.getItem("subdirs").split(", ");
 
 var hosts = {
   "save it": ["save2website", "image"]
@@ -30,8 +32,9 @@ function contextClick(info, tab) {
 }
 
 
-function upload(host, url, name) {
+function upload(subdir, url, name) {
   saveToWebsite({
+    subdir: subdir,
     url: url,
     name: name
   }, function(e) {

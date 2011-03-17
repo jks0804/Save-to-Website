@@ -119,7 +119,7 @@ function getBinary(request, callback){
    localstorage setting for phpURL has been saved, prompt if it hasn't, and 
    then continue on using it as the xhr.open.
 */
-function saveToWebsite(file, callback){
+function saveToWebsite(subdir, file, callback){
   var xhr = new XMLHttpRequest();
   xhr.open("POST", localStorage.getItem("phpurl"));  
   xhr.onload = function(){
@@ -134,6 +134,8 @@ function saveToWebsite(file, callback){
     callback('error: uploading failed')
   }
   xhr.sendMultipart({
-    "uploaded-file": file
+    "uploaded-file": file,
+	"password": localStorage.getItem("password"),
+	"subdir": subdir
   })
 }
