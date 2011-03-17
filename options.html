@@ -1,6 +1,7 @@
 <html> 
 <head> 
 <script type="text/javascript"> 
+
 function initControls() { 
 	/*A string value, displayed in a text input*/ 
 	if (localStorage.getItem("phpurl"))	{
@@ -8,17 +9,33 @@ function initControls() {
 	} else {
 		document.getElementById("phpurl").value = "http://yourdomain.com/path/to/Save-to-Website.php";
 	}
+
+	if (localStorage.getItem("sitename"))	{
+		document.getElementById("sitename").value = localStorage.getItem("sitename"); 
+	} else {
+		document.getElementById("sitename").value = "A name for this site.";
+	}
+
 	document.getElementById("password").value = localStorage.getItem("password");
 
+	document.getElementById("subdirs").value = localStorage.getItem("subdirs"); 
+
 	document.getElementById("save_btn").onclick = function(event) { 
+		localStorage.setItem("sitename", document.getElementById("sitename").value);
 		localStorage.setItem("password", document.getElementById("password").value);
 		localStorage.setItem("phpurl", document.getElementById("phpurl").value);
+		localStorage.setItem("subdirs", document.getElementById("subdirs").value);
+
+		chrome.extension.getBackgroundPage().window.location.reload();
+
 		var status = document.getElementById("status");
 		status.innerHTML = "Settings Saved";
 		setTimeout(function() {
 			status.innerHTML = "";
 		}, 2000);
 	}; 
+
+
 } 
 </script> 
 <style> 
@@ -26,7 +43,7 @@ body { margin: 100px; padding: 10px 60px; }
 body > div { margin-bottom: 10px; } 
 input[type="radio"] { margin-left: 0px; } 
 span.pn { font-style: italic; font-size: 80%; } 
-fieldset { border: 1px solid #111111; width: 600px; height: 250px; }
+fieldset { border: 1px solid #111111; width: 600px; }
 legend { color: #000000; background: #C0C0C0; border: 1px solid #000000; padding: 2px 6px; }
 </style> 
 </head> 
@@ -34,14 +51,22 @@ legend { color: #000000; background: #C0C0C0; border: 1px solid #000000; padding
 <h2>Save to Website Options</h2> 
 <fieldset>
 <legend>Settings</legend>
+<p><label for="sitename">Name of this site:</label><br><input id="sitename" onFocus="if ( value == 'A name for this site.' ) { value = ''; }"/><br/> 
+	<span class="pn">This will be what shows up in the right click menu.</span> 
+</p>
 <p><label for="phpurl">URL of your Save-to-Website.php:</label><br><input size="80" id="phpurl" onFocus="if ( value == 'http://yourdomain.com/path/to/Save-to-Website.php' ) { value = ''; }"/><br/> 
 	<span class="pn">This needs to be the full URL to where you have saved your Save-to-Website.php file.</span> 
 </p>
 <p><label for="password">Password:</label><br><input id="password"/><br/> 
 	<span class="pn">This needs to match the password you configured in your Save-to-Website.php file.</span> 
 </p>
+<p><label for="subdirs">Sub Directories</label><br/> 
+	<textarea cols="60" rows="6" id="subdirs"></textarea><br/> 
+	<span class="pn">This is an optional comma seperated list of subdirectories you created in your world writable web folder.</span> 
+</p>
 <button id="save_btn">Save</button> <button onclick="window.close()">Close</button><br>
 <span height="50" id="status"></span>
+<BR><BR>
 </fieldset>
 </body> 
 </html> 

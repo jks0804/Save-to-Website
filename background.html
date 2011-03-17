@@ -6,21 +6,26 @@ var root = chrome.contextMenus.create({
   "contexts" : ["image"]
 });
 
-var hosts = {};
+var subdirs2 = " , "+localStorage.getItem("subdirs");
+var subdirs = subdirs2.split(', ');
 
-var subdirs = localStorage.getItem("subdirs").split(", ");
-
-var hosts = {
-  "save it": ["save2website", "image"]
-}, menus = {};
-
+for (i=0;i<subdirs.length;i++) {
+	chrome.contextMenus.create({
+		title: "/"+subdirs[i],
+		type: "normal",
+		contexts: ["image"],
+		parentId: root,
+		onclick: contextClick2
+	});
+}
 
 function contextClick2(info, tab) {
   var url = info.linkUrl || info.srcUrl;
+  var subdir = info.title;
   var name = prompt("What would you like to save the file as?",unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$|\.\w+$/g,''));
   if(name){
     var ext = url.match(/(\.\w+$)/);
-	upload(menus[info.menuItemId], url, name+ext[1]);
+	upload(menus[info.menuItemId], subdir, url, name+ext[1]);
   }
 }
 
@@ -60,24 +65,6 @@ function upload(subdir, url, name) {
   })
 }
 
-for(var i in hosts) {
-  menus[chrome.contextMenus.create({
-    title: hosts[i][0],
-    type: "normal",
-    contexts: hosts[i].slice(1),
-    parentId: root,
-    onclick: contextClick2
-  })] = i;
-}
-
-
-chrome.contextMenus.create({
-  "type" : "separator",
-  "contexts": ["all"],
-  "parentId": root
-});
-
-      
 </script>
 
 
