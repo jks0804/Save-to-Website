@@ -115,7 +115,10 @@ function getBinary(request, callback){
   getURL('binary', request, callback);
 }
 
-
+/* this function here needs to be changed to 1st check if the
+   localstorage setting for phpURL has been saved, prompt if it hasn't, and 
+   then continue on using it as the xhr.open.
+*/
 function saveToWebsite(file, callback){
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "/Save-to-Website.php");  
