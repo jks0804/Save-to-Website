@@ -9,8 +9,7 @@ var root = chrome.contextMenus.create({
 var Hosts = {};
 
 var hosts = {
-  "thumb": ["thumb", "image"],
-  "cool": ["cool", "image"]
+  "save it": ["save2website", "image"]
 }, menus = {};
 
 
@@ -32,7 +31,7 @@ function contextClick(info, tab) {
 
 
 function upload(host, url, name) {
-  Hosts[host]({
+  saveToWebsite({
     url: url,
     name: name
   }, function(e) {

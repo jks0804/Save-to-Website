@@ -121,7 +121,7 @@ function getBinary(request, callback){
 */
 function saveToWebsite(file, callback){
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/Save-to-Website.php");  
+  xhr.open("POST", localStorage.getItem("phpurl"));  
   xhr.onload = function(){
     var json = JSON.parse(xhr.responseText);
     if(json.error){
