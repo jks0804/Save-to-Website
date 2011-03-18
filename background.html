@@ -1,7 +1,5 @@
 <script src="js/background.js"></script>
 <script>
-var optionsURL = chrome.extension.getURL("options.html");
-chrome.tabs.create({url: optionsURL}); 
 chrome.contextMenus.remove(1);
 
 var root = chrome.contextMenus.create({
