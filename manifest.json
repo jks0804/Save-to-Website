@@ -3,7 +3,7 @@
   "description": "Save to Website",
   "background_page": "background.html",
   "options_page": "options.html",
-  "version": "1.0.1",
+  "version": "0.1.0",
   "permissions": [
     "*://*/",
     "tabs",

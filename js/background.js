@@ -135,7 +135,7 @@ function saveToWebsite(subdir, file, callback){
   }
   xhr.sendMultipart({
     "uploaded-file": file,
-	"password": localStorage.getItem("password"),
 	"subdir": subdir
   })
+
 }
