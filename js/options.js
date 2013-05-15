@@ -22,17 +22,7 @@ function contextClick2(info, tab) {
 }
 
 function updateMenus(){
-	console.log(typeof window.menu_ids);
-	if(typeof window.menu_ids !== 'undefined') {
-	// this isnt working!
-		console.log("menu_ids exist!");
-		Object.keys(window.menu_ids).reverse().forEach(function(item){
-			console.log(item);
-			chrome.contextMenus.remove(parseInt(item));
-		});
-		chrome.contextMenus.remove(window.parent_menu_id);
-	}
-
+	chrome.contextMenus.removeAll();
 	var menu_ids = {};
 
 	var root = {
@@ -42,7 +32,6 @@ function updateMenus(){
 	};
 		 
 	var parent = chrome.contextMenus.create(root);
-	window.parent_menu_id = parent;
 
 	var subdirs2 = localStorage.getItem("sitename")+", "+localStorage.getItem("subdirs");
 	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
@@ -58,7 +47,6 @@ function updateMenus(){
 		};
 		menu_ids[chrome.contextMenus.create(prop)] = sorted[i];
 	}
-	window.menu_ids = menu_ids;
 	console.log(menu_ids);
 }
 

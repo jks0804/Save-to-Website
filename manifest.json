@@ -1,6 +1,6 @@
 {
   "name": "Save to WebSite",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "manifest_version": 2,
   "description": "Save to WebSite",
   "options_page": "options.html",

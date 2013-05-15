@@ -1,20 +1,14 @@
-// Check whether new version is installed
-chrome.runtime.onInstalled.addListener(function(details){
-    if(details.reason == "install"){
-		var optionsUrl = chrome.extension.getURL('options.html');
+if (localStorage.getItem("sitename")=="null"){
+	var optionsUrl = chrome.extension.getURL('options.html');
 
-		chrome.tabs.query({url: optionsUrl}, function(tabs) {
-			if (tabs.length) {
-				chrome.tabs.update(tabs[0].id, {active: true});
-			} else {
-				chrome.tabs.create({url: optionsUrl});
-			}
-		});
-    }else if(details.reason == "update"){
-        var thisVersion = chrome.runtime.getManifest().version;
-        console.log("Updated from " + details.previousVersion + " to " + thisVersion" + !");
-    }
-});
+	chrome.tabs.query({url: optionsUrl}, function(tabs) {
+		if (tabs.length) {
+			chrome.tabs.update(tabs[0].id, {active: true});
+		} else {
+			chrome.tabs.create({url: optionsUrl});
+		}
+	});
+}
 
 function https(){
   if(localStorage.no_https == 'on'){
@@ -174,39 +168,6 @@ function contextClick2(info, tab) {
 	}
 }
 
-function updateMenus(){
-	if(typeof menu_ids != "undefined") {
-		Object.keys(menu_ids).reverse().forEach(function(item){
-			console.log(item);
-			chrome.contextMenus.remove(parseInt(item));
-			delete menu_ids;
-		});
-	}
-
-	var menu_ids = {};
-
-	var root = {
-		  "title" : "Save to Website",
-		  "type" : "normal",
-		  "contexts" : ["image"]
-	};
-
-	var subdirs2 = localStorage.getItem("sitename")+" (root), "+localStorage.getItem("subdirs");
-	var subdirs3 = subdirs2.replace(', ', ',');
-	var sorted = subdirs3.split(',');
-	for(var i = 0; i < sorted.length; i++){
-		var prop = {
-			"title": sorted[i],
-			"onclick": contextClick2,
-			"contexts": ["image"],
-		};
-		menu_ids[chrome.contextMenus.create(prop)] = sorted[i];
-	}
-	window.menu_ids = menu_ids;
-	console.log(menu_ids);
-}
-
-
 function contextClick(info, tab) {
   var url = info.linkUrl || info.srcUrl;
   var name = unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$/g,'');
@@ -243,4 +204,28 @@ function upload(subdir, url, name, password) {
   })
 }
 
-updateMenus();
+var menu_ids = {};
+
+var root = {
+	"title": "Save to Website",
+	"type": "normal",
+	"contexts": ["image"]
+};
+	 
+var parent = chrome.contextMenus.create(root);
+
+var subdirs2 = localStorage.getItem("sitename")+", "+localStorage.getItem("subdirs");
+var subdirs3 = subdirs2.replace(/\,\s/g, ',');
+var subdirs4 = subdirs3.replace(/\,$/,'');
+var sorted = subdirs4.split(',');
+for(var i = 0; i < sorted.length; i++){
+	console.log(sorted[i]);
+	var prop = {
+		"title": sorted[i],
+		"onclick": contextClick2,
+		"contexts": ["image"],
+		"parentId": parent
+	};
+	menu_ids[chrome.contextMenus.create(prop)] = sorted[i];
+}
+console.log(menu_ids);
