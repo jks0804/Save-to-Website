@@ -6,25 +6,31 @@ function clone(obj){ //very shallow cloning
 
 function contextClick2(info, tab) {
 	var url = info.linkUrl || info.srcUrl;
-	var subdirs2 = " , "+localStorage.getItem("subdirs");
-	var subdirs = subdirs2.split(', ');
-	var subdir = subdirs[info.menuItemId-2];
+	var password = localStorage.getItem("password");
+	var subdirs2 = "root, "+localStorage.getItem("subdirs");
+	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
+	var subdirs = subdirs3.split(',');
+	var subdir = window.menu_ids[info.menuItemId];
 	var name = prompt("What would you like to save the file as?",unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$|\.\w+$/g,''));
 	if(name){
 		var ext = url.match(/(\.\w+$)/);
-		upload(subdir, url, name+ext[1]);
+		if(subdir=="root"){
+			sudbir = "";
+		}
+		upload(subdir, url, name+ext[1], password);
 	}
 }
 
 function updateMenus(){
-	if(typeof menu_ids != "undefined") {
+	console.log(typeof window.menu_ids);
+	if(typeof window.menu_ids !== 'undefined') {
 	// this isnt working!
 		console.log("menu_ids exist!");
-		Object.keys(menu_ids).reverse().forEach(function(item){
+		Object.keys(window.menu_ids).reverse().forEach(function(item){
 			console.log(item);
 			chrome.contextMenus.remove(parseInt(item));
-			delete menu_ids;
 		});
+		chrome.contextMenus.remove(window.parent_menu_id);
 	}
 
 	var menu_ids = {};
@@ -34,19 +40,25 @@ function updateMenus(){
 		  "type" : "normal",
 		  "contexts" : ["image"]
 	};
+		 
+	var parent = chrome.contextMenus.create(root);
+	window.parent_menu_id = parent;
 
 	var subdirs2 = localStorage.getItem("sitename")+", "+localStorage.getItem("subdirs");
 	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
-	var sorted = subdirs3.split(',');
-	for(var i = 1; i < sorted.length; i++){
+	var subdirs4 = subdirs3.replace(/\,$/,'');
+	var sorted = subdirs4.split(',');
+	for(var i = 0; i < sorted.length; i++){
+		console.log(sorted[i]);
 		var prop = {
-			"title": +sorted[i],
+			"title": sorted[i],
 			"onclick": contextClick2,
 			"contexts": ["image"],
+			"parentId": parent
 		};
-		menu_ids[chrome.contextMenus.create(prop)] = sorted[i].trim();
+		menu_ids[chrome.contextMenus.create(prop)] = sorted[i];
 	}
-
+	window.menu_ids = menu_ids;
 	console.log(menu_ids);
 }
 

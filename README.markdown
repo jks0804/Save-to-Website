@@ -38,8 +38,13 @@ Thanks to lexpex for pointing out that this old extension wasn't working any mor
 
 ### Version Info
 
+v 0.3.0 (15th May 2013)
+---
+* Fixed issue when no sub-directories were set
+* Fixed issue with menu building function (wasn't cleaning up on re-save)
+
 v 0.2.0 (15th May 2013)
---
+---
 * Updated to manifest version 2
 * Fixed WebKitBlob changes
 * Reworked options saving / loading
@@ -48,5 +53,5 @@ v 0.2.0 (15th May 2013)
 * Generally took this a bit more seriously because someone else is actually trying to use it!
 
 v 0.1.0 (18th Mar 2011)
---
+---
 * Extension working as planned.
