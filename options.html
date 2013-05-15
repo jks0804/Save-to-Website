@@ -1,85 +1,6 @@
 <html> 
 <head> 
-<script src="js/background.js"></script>
-<script type="text/javascript"> 
-
-function clone(obj){ //very shallow cloning
-  var n = {};
-  for(var i in obj) n[i] = obj[i]; //we are the knights who say ni!
-  return n;
-}
-
-function updateMenus(){
-	if(typeof menu_ids != "undefined") {
-	// this isnt working!
-		console.log("menu_ids exist!");
-		Object.keys(menu_ids).reverse().forEach(function(item){
-			console.log(item);
-			chrome.contextMenus.remove(parseInt(item));
-			delete menu_ids;
-		});
-	}
-
-	var menu_ids = {};
-
-	var root = {
-		  "title" : "Save to Website",
-		  "type" : "normal",
-		  "contexts" : ["image"]
-	};
-	menu_ids[chrome.contextMenus.create(root)] = "root";
-
-	var subdirs2 = document.getElementById("sitename").value+"/, "+document.getElementById("subdirs").value;
-	var sorted = subdirs2.split(', ');
-	for(var i = 1; i < sorted.length; i++){
-		var prop = {
-			"title": "/"+sorted[i],
-			"onclick": contextClick2,
-			"contexts": ["image"],
-			"parentId": 1
-		};
-		menu_ids[chrome.contextMenus.create(prop)] = sorted[i];
-	}
-
-	console.log(menu_ids);
-}
-
-function initControls() { 
-	/*A string value, displayed in a text input*/ 
-	if (localStorage.getItem("phpurl"))	{
-		document.getElementById("phpurl").value = localStorage.getItem("phpurl"); 
-	} else {
-		document.getElementById("phpurl").value = "http://yourdomain.com/path/to/Save-to-Website.php";
-	}
-
-	if (localStorage.getItem("sitename"))	{
-		document.getElementById("sitename").value = localStorage.getItem("sitename"); 
-	} else {
-		document.getElementById("sitename").value = "A name for this site.";
-	}
-
-	document.getElementById("password").value = localStorage.getItem("password");
-
-	document.getElementById("subdirs").value = localStorage.getItem("subdirs"); 
-
-	document.getElementById("save_btn").onclick = function(event) { 
-		localStorage.setItem("sitename", document.getElementById("sitename").value);
-		localStorage.setItem("password", document.getElementById("password").value);
-		localStorage.setItem("phpurl", document.getElementById("phpurl").value);
-		localStorage.setItem("subdirs", document.getElementById("subdirs").value);
-
-		updateMenus();
-
-		var status = document.getElementById("status");
-		status.innerHTML = "Settings Saved";
-		setTimeout(function() {
-			status.innerHTML = "";
-		}, 2000);
-	}; 
-
-
-} 
-</script> 
+<title>Save to Website Options</title>
 <style> 
 body { margin: 100px; padding: 10px 60px; } 
 body > div { margin-bottom: 10px; } 
@@ -89,26 +10,27 @@ fieldset { border: 1px solid #111111; width: 600px; }
 legend { color: #000000; background: #C0C0C0; border: 1px solid #000000; padding: 2px 6px; }
 </style> 
 </head> 
-<body onload="initControls();"> 
+<body> 
 <h2>Save to Website Options</h2> 
 <fieldset>
 <legend>Settings</legend>
-<p><label for="sitename">Name of this site:</label><br><input id="sitename" onFocus="if ( value == 'A name for this site.' ) { value = ''; }"/><br/> 
+<p><label for="sitename">Name of this site:</label><br><input type="text" id="sitename"><br> 
 	<span class="pn">This will be what shows up in the right click menu.</span> 
 </p>
-<p><label for="phpurl">URL of your Save-to-Website.php:</label><br><input size="80" id="phpurl" /><br/> 
-	<span class="pn">This needs to be the full URL to where you have saved your Save-to-Website.php file.</span> 
+<p><label for="phpurl">URL of your Save-to-Website.php:</label><br><input type="text" size="80" id="phpurl"><br/> 
+	<span class="pn">This needs to be the full URL to where you have saved your Save-to-Website.php file.<br>Example: http://yourdomain.com/path/to/Save-to-Website.php</span> 
 </p>
-<p><label for="password">Password:</label><br><input id="password"/><br/> 
+<p><label for="password">Password:</label><br><input type="text" id="password"><br> 
 	<span class="pn">This needs to match the password you configured in your Save-to-Website.php file.</span> 
 </p>
-<p><label for="subdirs">Sub Directories</label><br/> 
-	<textarea cols="60" rows="6" id="subdirs"></textarea><br/> 
+<p><label for="subdirs">Sub Directories</label><br> 
+	<textarea cols="60" rows="6" id="subdirs"></textarea><br> 
 	<span class="pn">This is an optional comma seperated list of subdirectories you created in your world writable web folder.</span> 
 </p>
-<button id="save_btn">Save</button> <button onclick="window.close()">Close</button><br>
+<button id="save">Save</button> <button id="close">Close</button><br>
 <span height="50" id="status"></span>
-<BR><BR>
+<br><br>
 </fieldset>
 </body> 
+<script src="js/options.js"></script> 
 </html> 

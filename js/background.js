@@ -1,4 +1,20 @@
+// Check whether new version is installed
+chrome.runtime.onInstalled.addListener(function(details){
+    if(details.reason == "install"){
+		var optionsUrl = chrome.extension.getURL('options.html');
 
+		chrome.tabs.query({url: optionsUrl}, function(tabs) {
+			if (tabs.length) {
+				chrome.tabs.update(tabs[0].id, {active: true});
+			} else {
+				chrome.tabs.create({url: optionsUrl});
+			}
+		});
+    }else if(details.reason == "update"){
+        var thisVersion = chrome.runtime.getManifest().version;
+        console.log("Updated from " + details.previousVersion + " to " + thisVersion" + !");
+    }
+});
 
 function https(){
   if(localStorage.no_https == 'on'){
@@ -62,14 +78,14 @@ function getURL(type, request, callback, sync){
 
       if(type == 'binary'){
         //*
-        if(typeof BlobBuilder == 'undefined'){
+        if(typeof WebKitBlobBuilder == 'undefined'){
         
           for(var raw = xhr.responseText, l = raw.length, i = 0, data = ''; i < l; i++) data += String.fromCharCode(raw.charCodeAt(i) & 0xff);
           
           callback({id: request.id, data: data, type: request.type, size: data.length, name: request.name});
         }else{
         
-          var bb = new BlobBuilder();//this webworker is totally overkill
+          var bb = new WebKitBlobBuilder();//this webworker is totally overkill
           bb.append("onmessage = function(e) { for(var raw = e.data, l = raw.length, i = 0, data = ''; i < l; i++) data += String.fromCharCode(raw.charCodeAt(i) & 0xff); postMessage(data) }");
           var url;
           if(window.createObjectURL){
@@ -119,7 +135,7 @@ function getBinary(request, callback){
    localstorage setting for phpURL has been saved, prompt if it hasn't, and 
    then continue on using it as the xhr.open.
 */
-function saveToWebsite(subdir, file, callback){
+function saveToWebsite(subdir, file, password, callback){
   var xhr = new XMLHttpRequest();
   xhr.open("POST", localStorage.getItem("phpurl"));  
   xhr.onload = function(){
@@ -135,42 +151,81 @@ function saveToWebsite(subdir, file, callback){
   }
   xhr.sendMultipart({
     "uploaded-file": file,
-	"subdir": subdir
+	"subdir": subdir,
+	"password": password
   })
 
 }
 
 function contextClick2(info, tab) {
 	var url = info.linkUrl || info.srcUrl;
-	var subdirs2 = " , "+localStorage.getItem("subdirs");
-	var subdirs = subdirs2.split(', ');
-	var subdir = subdirs[info.menuItemId-2];
+	var password = localStorage.getItem("password");
+	var subdirs2 = "root, "+localStorage.getItem("subdirs");
+	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
+	var subdirs = subdirs3.split(',');
+	var subdir = window.menu_ids[info.menuItemId];
 	var name = prompt("What would you like to save the file as?",unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$|\.\w+$/g,''));
 	if(name){
 		var ext = url.match(/(\.\w+$)/);
-		upload(subdir, url, name+ext[1]);
+		if(subdir=="root"){
+			sudbir = "";
+		}
+		upload(subdir, url, name+ext[1], password);
 	}
+}
+
+function updateMenus(){
+	if(typeof menu_ids != "undefined") {
+		Object.keys(menu_ids).reverse().forEach(function(item){
+			console.log(item);
+			chrome.contextMenus.remove(parseInt(item));
+			delete menu_ids;
+		});
+	}
+
+	var menu_ids = {};
+
+	var root = {
+		  "title" : "Save to Website",
+		  "type" : "normal",
+		  "contexts" : ["image"]
+	};
+
+	var subdirs2 = localStorage.getItem("sitename")+" (root), "+localStorage.getItem("subdirs");
+	var subdirs3 = subdirs2.replace(', ', ',');
+	var sorted = subdirs3.split(',');
+	for(var i = 0; i < sorted.length; i++){
+		var prop = {
+			"title": sorted[i],
+			"onclick": contextClick2,
+			"contexts": ["image"],
+		};
+		menu_ids[chrome.contextMenus.create(prop)] = sorted[i];
+	}
+	window.menu_ids = menu_ids;
+	console.log(menu_ids);
 }
 
 
 function contextClick(info, tab) {
   var url = info.linkUrl || info.srcUrl;
   var name = unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$/g,'');
-  upload(url, name);
+  var password = localStorage.getItem("password");
+  upload("", url, name, password);
 }
 
 
-function upload(subdir, url, name) {
+function upload(subdir, url, name, password) {
   saveToWebsite(subdir, {
     url: url,
     name: name
-  }, function(e) {
+  }, password, function(e) {
     if(e && e.indexOf('error:') != -1){
 	  console.log('failed boo', e);
       var notification = webkitNotifications.createNotification(
         'icon/64sad.png',  // icon url - can be relative
         "Aww Snap!",  // notification title
-        "The file '"+name+"' could not be uploaded to "+e+". "+e.substr(7)  // notification body text
+        "The file '"+name+"' could not be uploaded to "+subdir+". "+e.substr(7)  // notification body text
       );
       notification.show();
     } else {
@@ -187,3 +242,5 @@ function upload(subdir, url, name) {
     }
   })
 }
+
+updateMenus();

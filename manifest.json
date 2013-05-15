@@ -1,9 +1,12 @@
 {
-  "name": "Save to Website",
-  "description": "Save to Website",
-  "background_page": "background.html",
+  "name": "Save to WebSite",
+  "version": "0.2.0",
+  "manifest_version": 2,
+  "description": "Save to WebSite",
   "options_page": "options.html",
-  "version": "0.1.0",
+  "background": { 
+    "page": "background.html" 
+  },
   "permissions": [
     "*://*/",
     "tabs",
@@ -16,7 +19,17 @@
     "32": "icon/32.png",
     "48": "icon/48.png",
     "64": "icon/64.png",
+    "64": "icon/64sad.png",
     "128": "icon/128.png",
     "512": "icon/512.png"
-  }
+  },
+  "web_accessible_resources": [
+    "icon/16.png",
+	"icon/32.png",
+	"icon/48.png",
+	"icon/64.png",
+	"icon/64sad.png",
+	"icon/128.png",
+	"icon/512.png"
+  ]
 }

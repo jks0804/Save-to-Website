@@ -1,5 +1,81 @@
-var Bg=chrome.extension.getBackgroundPage(),Prefs=Bg.Prefs;$(document).ready(function(){$("#btnSave").click(function(){save();$("#noticeSaved").fadeIn("slow").delay(1E3).fadeOut("slow");return false});$("#btnCancel").click(function(){window.close();return false});prefs2UI();(function(){var a=$("#check-autoloadBookmarkStatus"),b=$("#check-autoload");a.change(function(){a.is(":checked")||b.attr("checked",false)});b.change(function(){b.is(":checked")&&a.attr("checked",true)})})()});
+function clone(obj){ //very shallow cloning
+  var n = {};
+  for(var i in obj) n[i] = obj[i]; //we are the knights who say ni!
+  return n;
+}
 
-function save(){UI2prefs()}function prefs2UI(){$("#check-bmPrivateAsDefault").attr({checked:Prefs.get("prefs.bookmark.privateByDefault")=="true"});$("#check-autoloadBookmarkStatus").attr({checked:Prefs.get("prefs.autoloadBookmarkStatus")=="true"});$("#check-autoload").attr({checked:Prefs.get("prefs.autoload")=="true"});$("#check-contextMenu").attr({checked:Prefs.get("prefs.contextMenu")=="true"});$("#check-comboSearch").attr({checked:Prefs.get("prefs.comboSearch")=="true"})}
+function contextClick2(info, tab) {
+	var url = info.linkUrl || info.srcUrl;
+	var subdirs2 = " , "+localStorage.getItem("subdirs");
+	var subdirs = subdirs2.split(', ');
+	var subdir = subdirs[info.menuItemId-2];
+	var name = prompt("What would you like to save the file as?",unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$|\.\w+$/g,''));
+	if(name){
+		var ext = url.match(/(\.\w+$)/);
+		upload(subdir, url, name+ext[1]);
+	}
+}
 
-function UI2prefs(){Prefs.set({"prefs.bookmark.privateByDefault":$("#check-bmPrivateAsDefault").is(":checked")});Prefs.set({"prefs.autoloadBookmarkStatus":$("#check-autoloadBookmarkStatus").is(":checked")});Prefs.set({"prefs.autoload":$("#check-autoload").is(":checked")});Prefs.set({"prefs.contextMenu":$("#check-contextMenu").is(":checked")});Prefs.set({"prefs.comboSearch":$("#check-comboSearch").is(":checked")})};
+function updateMenus(){
+	if(typeof menu_ids != "undefined") {
+	// this isnt working!
+		console.log("menu_ids exist!");
+		Object.keys(menu_ids).reverse().forEach(function(item){
+			console.log(item);
+			chrome.contextMenus.remove(parseInt(item));
+			delete menu_ids;
+		});
+	}
+
+	var menu_ids = {};
+
+	var root = {
+		  "title" : "Save to Website",
+		  "type" : "normal",
+		  "contexts" : ["image"]
+	};
+
+	var subdirs2 = localStorage.getItem("sitename")+", "+localStorage.getItem("subdirs");
+	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
+	var sorted = subdirs3.split(',');
+	for(var i = 1; i < sorted.length; i++){
+		var prop = {
+			"title": +sorted[i],
+			"onclick": contextClick2,
+			"contexts": ["image"],
+		};
+		menu_ids[chrome.contextMenus.create(prop)] = sorted[i].trim();
+	}
+
+	console.log(menu_ids);
+}
+
+function restore_options() { 
+	document.getElementById("phpurl").value = localStorage.getItem("phpurl"); 
+	document.getElementById("sitename").value = localStorage.getItem("sitename"); 
+	document.getElementById("password").value = localStorage.getItem("password");
+	document.getElementById("subdirs").value = localStorage.getItem("subdirs"); 
+}
+
+function save_options() { 
+	localStorage.setItem("sitename", document.getElementById("sitename").value);
+	localStorage.setItem("password", document.getElementById("password").value);
+	localStorage.setItem("phpurl", document.getElementById("phpurl").value);
+	localStorage.setItem("subdirs", document.getElementById("subdirs").value);
+
+	var status = document.getElementById("status");
+	status.innerHTML = "Settings Saved";
+	setTimeout(function() {
+		status.innerHTML = "";
+	}, 2000);
+
+	updateMenus();
+} 
+
+function close_tab() { 
+	close();
+} 
+
+document.addEventListener('DOMContentLoaded', restore_options);
+document.querySelector('#save').addEventListener('click', save_options);
+document.querySelector('#close').addEventListener('click', close_tab);

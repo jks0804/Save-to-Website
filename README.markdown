@@ -22,16 +22,31 @@ saving into a few different groups.
 You will need to save a copy of, and configure, the Save-to-Website.php 
 file to somewhere world readable on your webserver. 
 
-### Credits n Props
+Add the extension to Chrome via the menu Tools -> Extensions. Hit the 
+"Load unpacked extension..." button up the top. Browse to where you've
+downloaded and extracted this repo to. Click the Options link and 
+configure up the required settings.
+
+### Credits and Props
 
 This extension is a stripped down hack of antimatter15's cloudsave:
 https://github.com/antimatter15/cloudsave
 
 Props to the crazy88 for putting up with my testing.
 
+Thanks to lexpex for pointing out that this old extension wasn't working any more.
+
 ### Version Info
 
-18/03/2011 
-* v 0.1.0
+v 0.2.0 (15th May 2013)
+--
+* Updated to manifest version 2
+* Fixed WebKitBlob changes
+* Reworked options saving / loading
+* Reworked sudbir menu system
+* Reworked password system (I don't see how it was ever working)
+* Generally took this a bit more seriously because someone else is actually trying to use it!
 
-Extension working as planned.
+v 0.1.0 (18th Mar 2011)
+--
+* Extension working as planned.
