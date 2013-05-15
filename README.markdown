@@ -41,16 +41,18 @@ working any more.
 
 ### Version Info
 
-v 0.3.2 (15th May 2013)
---- 
+#### v 0.3.2 (15th May 2013)
+
 * Fixed duplicate menus being made if options were resaved
 
-v 0.3.0 (15th May 2013) 
---- 
+- - - - 
+#### v 0.3.0 (15th May 2013) 
+
 * Fixed issue when no sub-directories were set 
 
-v 0.2.0 (15th May 2013) 
---- 
+- - - - 
+#### v 0.2.0 (15th May 2013) 
+
 * Updated to manifest version 2 
 * Fixed WebKitBlob changes 
 * Reworked options saving / loading 
@@ -59,6 +61,7 @@ v 0.2.0 (15th May 2013)
 * Generally took this a bit more seriously because someone else is 
 actually trying to use it!
 
-v 0.1.0 (18th Mar 2011) 
---- 
+- - - - 
+#### v 0.1.0 (18th Mar 2011) 
+
 * Extension working as planned.
