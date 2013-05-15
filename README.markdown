@@ -1,6 +1,6 @@
 Save to Website 
-by Rob "Fuzzwah" Crouch 
 ======================================
+###### by Rob "Fuzzwah" Crouch 
 
 ### Overview
 
@@ -23,6 +23,11 @@ enable saving into a few different groups.
 You will need to save a copy of, and configure, the 
 Save-to-Website.php file to somewhere world readable on your 
 webserver. 
+
+You can either grab the files from here on github, or use this link
+and install it from [the Chrome Store](http://bit.ly/18MejN5). Using
+the Chrome Store is recommended as the extension will then be auto
+updated if/when I make changes.
 
 ### Credits and Props
 
