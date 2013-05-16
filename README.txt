@@ -37,6 +37,12 @@ Thanks to lexpex for pointing out that this old extension wasn't working any mor
 
 ### Version Info
 
+#### v 0.3.6 (16th May 2013)
+
+* split functions out into seperate js to avoid duplication
+* have to force options tab to close else weird things happen
+
+- - - - 
 #### v 0.3.5 (16th May 2013)
 
 * now require the upload function in both background and options
