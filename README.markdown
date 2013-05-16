@@ -51,10 +51,11 @@ working any more.
 
 ### Version Info
 
-#### v 0.3.6 (16th May 2013)
+#### v 0.3.7 (16th May 2013)
 
 * Now require the upload function in both background and options
 * Force settings tab to close after save
+* Added check in php to catch if subdir is undefined
 
 - - - - 
 #### v 0.3.3 (16th May 2013)
