@@ -1,8 +1,9 @@
 {
   "name": "Save to WebSite",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "manifest_version": 2,
-  "description": "Save to WebSite",
+  "description": "Save images from web sites onto your own web server. Requires PHP.",
+  "homepage_url": "https://github.com/Fuzzwah/Save-to-Website",
   "options_page": "options.html",
   "background": { 
     "page": "background.html" 

@@ -207,28 +207,34 @@ function upload(subdir, url, name, password) {
   })
 }
 
-var menu_ids = {};
+function updateMenus(){
+	chrome.contextMenus.removeAll();
+	var menu_ids = {};
 
-var root = {
-	"title": "Save to Website",
-	"type": "normal",
-	"contexts": ["image"]
-};
-	 
-var parent = chrome.contextMenus.create(root);
-
-var subdirs2 = localStorage.getItem("sitename")+", "+localStorage.getItem("subdirs");
-var subdirs3 = subdirs2.replace(/\,\s/g, ',');
-var subdirs4 = subdirs3.replace(/\,$/,'');
-var sorted = subdirs4.split(',');
-for(var i = 0; i < sorted.length; i++){
-	console.log(sorted[i]);
-	var prop = {
-		"title": sorted[i],
-		"onclick": contextClick2,
-		"contexts": ["image"],
-		"parentId": parent
+	var root = {
+		  "title" : "Save to Website",
+		  "type" : "normal",
+		  "contexts" : ["image"]
 	};
-	menu_ids[chrome.contextMenus.create(prop)] = sorted[i];
+		 
+	var parent = chrome.contextMenus.create(root);
+
+	var subdirs2 = localStorage.getItem("sitename")+", "+localStorage.getItem("subdirs");
+	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
+	var subdirs4 = subdirs3.replace(/\,$/,'');
+	var sorted = subdirs4.split(',');
+	for(var i = 0; i < sorted.length; i++){
+		console.log(sorted[i]);
+		var prop = {
+			"title": sorted[i],
+			"onclick": contextClick2,
+			"contexts": ["image"],
+			"parentId": parent
+		};
+		menu_ids[chrome.contextMenus.create(prop)] = sorted[i];
+	}
+	localStorage.setItem("menu_ids", menu_ids);
+	console.log(menu_ids);
 }
-console.log(menu_ids);
+
+updateMenus();

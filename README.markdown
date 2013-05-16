@@ -51,10 +51,11 @@ working any more.
 
 ### Version Info
 
-#### v 0.3.7 (16th May 2013)
+#### v 0.3.8 (16th May 2013)
 
-* Now require the upload function in both background and options
-* Force settings tab to close after save
+* Menu rebuild logic no longer done in options.js
+* Settings are saved via options.js and menus rebuilt in background.js
+* Added button on options page to allow user to save and close
 * Added check in php to catch if subdir is undefined
 
 - - - - 
