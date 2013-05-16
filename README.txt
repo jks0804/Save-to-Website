@@ -1,7 +1,7 @@
 Save to Website 
 ======================================
 ###### by Rob "Fuzzwah" Crouch 
-v 0.4.0
+v 0.4.1
 
 ### Overview
 
@@ -38,32 +38,25 @@ Thanks to lexpex for pointing out that this old extension wasn't working any mor
 
 ### Version Info
 
+#### v 0.4.1 (16th May 2013)
+
+* URL now checked when updated in options, alerts if unreachable
+
+- - - - 
 #### v 0.4.0 (16th May 2013)
 
 * Fixed issue with WebKitBlobBuilder which was corrupting uploads
-
-- - - - 
-#### v 0.3.8 (16th May 2013)
-
 * Menu rebuild logic no longer done in options.js
-* Settings are saved via options.js and menus rebuilt in background.js
+* Settings saved via options.js and menus rebuilt in background.js
 * Added button on options page to allow user to save and close
 * Added check in php to catch if subdir is undefined
 
 - - - - 
-#### v 0.3.3 (16th May 2013)
+#### v 0.3.0 (16th May 2013)
 
 * php file can now be located in same directory as image storage
 * Fixed another menu creation issue
-
-- - - - 
-#### v 0.3.2 (15th May 2013)
-
 * Fixed duplicate menus being made if options were resaved
-
-- - - - 
-#### v 0.3.0 (15th May 2013) 
-
 * Fixed issue when no sub-directories were set 
 
 - - - - 
@@ -74,9 +67,10 @@ Thanks to lexpex for pointing out that this old extension wasn't working any mor
 * Reworked options saving / loading 
 * Reworked sudbir menu system 
 * Reworked password system (I don't see how it was ever working) 
-* Generally took this a bit more seriously because someone else is actually trying to use it!
+* Generally took this a bit more seriously because someone else is 
+actually trying to use it!
 
 - - - - 
 #### v 0.1.0 (18th Mar 2011) 
 
-* Extension working as planned.
+* Extension working in basic form

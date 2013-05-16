@@ -5,6 +5,35 @@ function restore_options() {
 	document.getElementById("subdirs").value = localStorage.getItem("subdirs"); 
 }
 
+function reqListener () {
+	console.log(this.status);
+	if(this.status!="200"){
+		alert("Check URL setting.\n\n Web Server responded with status: "+this.status+" "+this.statusText);
+	}
+};
+
+function check_url(url){
+	var tmp = new XMLHttpRequest();
+	tmp.onload = reqListener;
+	tmp.open("get", url, true);
+	tmp.send(null);
+	tmp.onreadystatechange=function() {
+		if (tmp.readyState==4 && tmp.status==200) {
+			localStorage.setItem("urlerror","0");
+			save_options();
+		}else if (tmp.readyState==4 && tmp.status!=200)	{
+			var status = document.getElementById("status");
+			status.innerHTML = "Please confirm and fix URL";
+			localStorage.setItem("urlerror","1");
+		}
+	}
+	return;
+}
+
+function save() {
+	check_url(document.getElementById("phpurl").value);
+}
+
 function save_options() { 
 	localStorage.setItem("sitename", document.getElementById("sitename").value);
 	localStorage.setItem("password", document.getElementById("password").value);
@@ -15,6 +44,7 @@ function save_options() {
 
 	var status = document.getElementById("status");
 	status.innerHTML = "Settings Saved";
+
 } 
 
 function close_tab() { 
@@ -22,54 +52,57 @@ function close_tab() {
 } 
 
 function save_close() {
-	save_options();
-	var status = document.getElementById("status");
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab";
-	}, 2000);
+	save();
+	if (localStorage.getItem("urlerror")!=1){
+		var status = document.getElementById("status");
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab";
+		}, 2000);
 
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab.";
-	}, 2100);
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab.";
+		}, 2100);
 
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab..";
-	}, 2200);
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab.";
+		}, 2200);
 
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab...";
-	}, 2300);
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab...";
+		}, 2300);
 
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab....";
-	}, 2400);
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab.......";
+		}, 2400);
 
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab.....";
-	}, 2500);
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab..........";
+		}, 2500);
 
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab......";
-	}, 2600);
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab.............";
+		}, 2600);
 
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab.......";
-	}, 2700);
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab................";
+		}, 2700);
 
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab........";
-	}, 2800);
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab...................";
+		}, 2800);
 
-	setTimeout(function() {
-		status.innerHTML = "Closing Options Tab.........";
-	}, 2900);
+		setTimeout(function() {
+			status.innerHTML = "Closing Options Tab......................";
+		}, 2900);
 
-	setTimeout(function() {
-		close();
-	}, 3000);
+		setTimeout(function() {
+			close();
+		}, 3000);
+	}
+
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);
-document.querySelector('#save').addEventListener('click', save_options);
+document.querySelector('#save').addEventListener('click', save);
 document.querySelector('#save_close').addEventListener('click', save_close);
 document.querySelector('#close').addEventListener('click', close_tab);
