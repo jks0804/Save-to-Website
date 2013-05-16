@@ -51,6 +51,11 @@ working any more.
 
 ### Version Info
 
+#### v 0.3.5 (16th May 2013)
+
+* now require the upload function in both background and options
+
+- - - - 
 #### v 0.3.3 (16th May 2013)
 
 * php file can now be located in same directory as image storage

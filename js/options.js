@@ -10,7 +10,8 @@ function contextClick2(info, tab) {
 	var subdirs2 = "root, "+localStorage.getItem("subdirs");
 	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
 	var subdirs = subdirs3.split(',');
-	var menuitems = localStorage.getItem(menu_ids);
+	var menuitems = localStorage.getItem("menu_ids");
+	console.log(menuitems);
 	menu_ids = menuitems.split(',');
 	var subdir = menu_ids[info.menuItemId];
 	var name = prompt("What would you like to save the file as?",unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$|\.\w+$/g,''));
@@ -21,6 +22,34 @@ function contextClick2(info, tab) {
 		}
 		upload(subdir, url, name+ext[1], password);
 	}
+}
+
+function upload(subdir, url, name, password) {
+  saveToWebsite(subdir, {
+    url: url,
+    name: name
+  }, password, function(e) {
+    if(e && e.indexOf('error:') != -1){
+	  console.log('failed boo', e);
+      var notification = webkitNotifications.createNotification(
+        'icon/64sad.png',  // icon url - can be relative
+        "Aww Snap!",  // notification title
+        "The file '"+name+"' could not be uploaded to "+subdir+". "+e.substr(7)  // notification body text
+      );
+      notification.show();
+    } else {
+      console.log('uploaded file yay', e);
+      var notification = webkitNotifications.createNotification(
+        'icon/64.png',  // icon url - can be relative
+        "Uploading Complete",  // notification title
+        "The file '"+name+"' has been uploaded to "+e.substr(8)  // notification body text
+      );
+      notification.show();
+	  setTimeout(function(){
+        notification.cancel();
+        }, '5000');
+    }
+  })
 }
 
 function updateMenus(){
