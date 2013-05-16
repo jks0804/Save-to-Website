@@ -22,8 +22,18 @@ enable saving into a few different groups.
 
 You will need to save a copy of, and configure, the 
 Save-to-Website.php file to somewhere world readable on your 
-webserver. 
+webserver. In the php file you'll find 3 variables which need to be
+configured:
 
+    // the full URL to the storage folder.
+    $externalURL = "http://yoursite.com/path/to/images";
+
+    // the relative path to storage folder compared to the php file
+    $internalPath = ""; 
+
+    // set a password here and then configure this in the extension
+    $password = ""; 
+    
 You can either grab the files from here on github, or use this link
 and install it from [the Chrome Store](http://bit.ly/18MejN5). Using
 the Chrome Store is recommended as the extension will then be auto
@@ -41,6 +51,12 @@ working any more.
 
 ### Version Info
 
+#### v 0.3.3 (16th May 2013)
+
+* php file can now be located in same directory as image storage
+* Fixed another menu creation issue
+
+- - - - 
 #### v 0.3.2 (15th May 2013)
 
 * Fixed duplicate menus being made if options were resaved

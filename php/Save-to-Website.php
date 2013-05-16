@@ -10,23 +10,30 @@ Somewhere else on the web server create a directory and chmod it 777 (ie: world 
 You can make subdirectories below this if you'd like to sort images into different directories
 */
 
-// config these
-$externalURL = ""; // the full URL to the storage folder.
-$internalPath = ""; // the local path to the storage folder.
-$password = ""; // set a password here and then configure this in the extension
-// no edited below required, but hacking is encouraged!
+// config these three variables
 
+// the full URL to the storage folder.
+$externalURL = "http://yoursite.com/path/to/images";
+
+// the relative path to storage folder compared to the php file
+$internalPath = ""; 
+
+// set a password here and then configure this in the extension
+$password = ""; 
+
+// no edits below required, but hacking is encouraged!
 
 $externalURL = rtrim($externalURL, '/');
 $internalPath = rtrim($internalPath, '/');
-if ($password==$_FILES['password']) {
+if ($internalPath != "") $internalPath = $internalPath."/";
+if ($password==$_POST['password']) {
 	$filename=$_FILES['uploaded-file']['name'];
 	if (($_FILES['uploaded-file']['type']=="image/jpeg") || ($_FILES['uploaded-file']['type']=="image/gif")|| ($_FILES['uploaded-file']['type']=="image/png")) { 
-		if ($_FILES['subdir']!="") {
-			$externalURL=$externalURL."/".$_FILES['subdir'];
-			$internalPath=$internalPath."/".$_FILES['subdir'];
+		if ($_POST['subdir']!="") {
+			$externalURL=$externalURL."/".$_POST['subdir'];
+			$internalPath=$internalPath.$_POST['subdir'];
 		}
-		$path= $internalPath."/".$_FILES['uploaded-file']['name'];
+		$path= $internalPath.$_FILES['uploaded-file']['name'];
 		if (is_uploaded_file($_FILES['uploaded-file']['tmp_name'])) {
 			if (move_uploaded_file($_FILES['uploaded-file']['tmp_name'], $path)) {
 				$out=array('direct' => $externalURL."/".$_FILES['uploaded-file']['name'],
@@ -42,7 +49,8 @@ if ($password==$_FILES['password']) {
 		$out=array('error'=>"Unsupported image type!");
 	}
 } else {
-	$out=array('error'=>"Password failure. Check password option matches config in your Save-to-Website.php");
+	$out=array('error'=>"Password failure (used: ".$_POST['password']."). Check password option matches config in your Save-to-Website.php (test: ".$_POST['subdir'].")");
 }
 echo json_encode($out);
+$out="";
 ?>

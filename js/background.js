@@ -1,4 +1,4 @@
-if (localStorage.getItem("sitename")=="null"){
+if (localStorage.getItem("sitename")==null){
 	var optionsUrl = chrome.extension.getURL('options.html');
 
 	chrome.tabs.query({url: optionsUrl}, function(tabs) {
@@ -157,7 +157,10 @@ function contextClick2(info, tab) {
 	var subdirs2 = "root, "+localStorage.getItem("subdirs");
 	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
 	var subdirs = subdirs3.split(',');
-	var subdir = window.menu_ids[info.menuItemId];
+	var menuitems = localStorage.getItem("menu_ids");
+	console.log(menuitems);
+	menu_ids = menuitems.split(',');
+	var subdir = menu_ids[info.menuItemId];
 	var name = prompt("What would you like to save the file as?",unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$|\.\w+$/g,''));
 	if(name){
 		var ext = url.match(/(\.\w+$)/);
