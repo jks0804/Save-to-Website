@@ -29,7 +29,7 @@ if ($internalPath != "") $internalPath = $internalPath."/";
 if ($password==$_POST['password']) {
 	$filename=$_FILES['uploaded-file']['name'];
 	if (($_FILES['uploaded-file']['type']=="image/jpeg") || ($_FILES['uploaded-file']['type']=="image/gif")|| ($_FILES['uploaded-file']['type']=="image/png")) { 
-		if ($_POST['subdir']!="") {
+		if (($_POST['subdir']!="")&&($_POST['subdir']!="undefined")) {
 			$externalURL=$externalURL."/".$_POST['subdir'];
 			$internalPath=$internalPath.$_POST['subdir'];
 		}
