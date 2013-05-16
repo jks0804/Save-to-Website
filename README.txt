@@ -1,6 +1,7 @@
 Save to Website 
 ======================================
 ###### by Rob "Fuzzwah" Crouch 
+v 0.4.0
 
 ### Overview
 
@@ -37,6 +38,11 @@ Thanks to lexpex for pointing out that this old extension wasn't working any mor
 
 ### Version Info
 
+#### v 0.4.0 (16th May 2013)
+
+* Fixed issue with WebKitBlobBuilder which was corrupting uploads
+
+- - - - 
 #### v 0.3.8 (16th May 2013)
 
 * Menu rebuild logic no longer done in options.js
