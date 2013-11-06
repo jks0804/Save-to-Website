@@ -201,8 +201,9 @@ function contextClick2(info, tab) {
 	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
 	var subdirs = subdirs3.split(',');
 	var menuitems = localStorage.getItem("menu_ids");
-	console.log(menuitems);
-	menu_ids = menuitems.split(',');
+	menu_ids = JSON.parse(menuitems);
+	console.log(menu_ids);
+	console.log(info.menuItemId);
 	var subdir = menu_ids[info.menuItemId];
 	var name = prompt("What would you like to save the file as?",unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$|\.\w+$/g,''));
 	if(name){
@@ -276,8 +277,9 @@ function updateMenus(){
 		};
 		menu_ids[chrome.contextMenus.create(prop)] = sorted[i];
 	}
-	localStorage.setItem("menu_ids", menu_ids);
-	console.log(menu_ids);
+	localStorage.setItem("menu_ids", JSON.stringify(menu_ids));
+	menu_ids_test = JSON.parse(localStorage.getItem("menu_ids"));
+	console.log(menu_ids_test);
 }
 
 updateMenus();

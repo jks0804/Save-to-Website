@@ -51,6 +51,11 @@ working any more.
 
 ### Version Info
 
+#### v 0.4.2 (6th Nov 2013)
+
+* edited to fix uploading to subdirectories (Chrome changed the way it handles localStorage.setItem of objects, I'm now using JSON.stringify and JSON.parse when setting and getting. Thx google)
+
+- - - - 
 #### v 0.4.1 (16th May 2013)
 
 * URL now checked when updated in options, alerts if unreachable
