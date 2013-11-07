@@ -85,10 +85,6 @@ XMLHttpRequest.prototype.sendMultipart = function(params) {
     //Uint8 does clamping, but sendAsBinary doesn't
     console.log('actual data entity', file);
     
-    xhr.upload.addEventListener('progress', function(evt){
-  		uploadProgress(file.url, evt);
-	  }, false)
-
     append("; filename=\""+file.name+"\"" + rn + "Content-type: "+file.type);
 
     append(rn + rn);

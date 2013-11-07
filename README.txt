@@ -1,7 +1,7 @@
 Save to Website 
 ======================================
 ###### by Rob "Fuzzwah" Crouch 
-v 0.4.2
+v 0.4.3
 
 ### Overview
 
@@ -38,7 +38,7 @@ Thanks to lexpex for pointing out that this old extension wasn't working any mor
 
 ### Version Info
 
-#### v 0.4.2 (6th Nov 2013)
+#### v 0.4.3 (7th Nov 2013)
 
 * edited to fix uploading to subdirectories (Chrome changed the way it handles localStorage.setItem of objects, I'm now using JSON.stringify and JSON.parse when setting and getting. Thx google)
 

@@ -54,9 +54,6 @@ function getURL(type, request, callback, sync){
   }else{
     
     var xhr = new XMLHttpRequest();
-    xhr.addEventListener('progress', function(evt){
-  		downloadProgress(request.url, evt);
-  	}, false)
   
     xhr.open('GET', request.url, !sync);
     if(type == 'binary' || type == 'raw'){
@@ -197,19 +194,19 @@ function saveToWebsite(subdir, file, password, callback){
 function contextClick2(info, tab) {
 	var url = info.linkUrl || info.srcUrl;
 	var password = localStorage.getItem("password");
-	var subdirs2 = "root, "+localStorage.getItem("subdirs");
-	var subdirs3 = subdirs2.replace(/\,\s/g, ',');
-	var subdirs = subdirs3.split(',');
 	var menuitems = localStorage.getItem("menu_ids");
+	var sitename = localStorage.getItem("sitename");
 	menu_ids = JSON.parse(menuitems);
+	console.log(sitename);
 	console.log(menu_ids);
 	console.log(info.menuItemId);
 	var subdir = menu_ids[info.menuItemId];
 	var name = prompt("What would you like to save the file as?",unescape(unescape(unescape(url))).replace(/^.*\/|\?.*$|\#.*$|\&.*$|\.\w+$/g,''));
 	if(name){
 		var ext = url.match(/(\.\w+$)/);
-		if(subdir=="root"){
-			sudbir = "";
+		if(subdir == sitename){
+			console.log("subdir same as sitename");
+			subdir = "";
 		}
 		upload(subdir, url, name+ext[1], password);
 	}
